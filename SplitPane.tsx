@@ -179,7 +179,7 @@ SplitPaneState
     const { allowResize, maxSize, minSize, onChange, split, step } = this.props;
     const { active, position } = this.state;
     if (allowResize && active) {
-      console.log("SplitPane onTouchMove:"+JSON.stringify(event)+" allowResize:"+allowResize+" active:"+active);
+      // console.log("SplitPane onTouchMove:"+JSON.stringify(event)+" allowResize:"+allowResize+" active:"+active);
       unFocus(document, window);
       const isPrimaryFirst = this.props.primary === 'first';
       const ref = isPrimaryFirst ? this.pane1 : this.pane2;
