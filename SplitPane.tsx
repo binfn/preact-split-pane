@@ -91,7 +91,9 @@ SplitPaneState
     this.onMouseMove = this.onMouseMove.bind(this);
     this.onTouchMove = this.onTouchMove.bind(this);
     this.onMouseUp = this.onMouseUp.bind(this);
-    this.onMouseLeave= this.onMouseUp.bind(this);
+    this.onMouseLeave= this.onMouseLeave.bind(this);
+    this.onMouseOut= this.onMouseOut.bind(this);
+   
     // order of setting panel sizes.
     // 1. size
     // 2. getDefaultSize(defaultSize, minsize, maxSize)
@@ -122,6 +124,7 @@ SplitPaneState
     document.addEventListener('mousemove', this.onMouseMove);
     document.addEventListener('touchmove', this.onTouchMove);
     document.addEventListener('mouseleave', this.onMouseLeave);
+    document.addEventListener('mouseout', this.onMouseOut);
     this.setState(SplitPane.getSizeUpdate(this.props, this.state));
   }
  
@@ -142,11 +145,15 @@ SplitPaneState
     document.removeEventListener('mousemove', this.onMouseMove);
     document.removeEventListener('touchmove', this.onTouchMove);
     document.removeEventListener('mouseleave', this.onMouseLeave);
+    document.removeEventListener('mouseout', this.onMouseOut);
   }
   onMouseLeave(event: MouseEvent) {
     console.log("SplitPane onMouseLeave:"+event.clientX+","+event.clientY);
   }
-
+  onMouseOut(event: MouseEvent) {
+    console.log("SplitPane onMouseOut:"+event.clientX+","+event.clientY);
+  }
+   
   onMouseDown(event: MouseEvent) {
     console.log("SplitPane onMouseDown->onTouchStart:"+event.clientX+","+event.clientY);
     this.pauseEvent(event);
