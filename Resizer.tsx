@@ -33,10 +33,12 @@ const Resizer: FunctionComponent<{
       style={style}
       onMouseDown={event => onMouseDown(event)}
       onTouchStart={event => {
+        console.log("Resizer onTouchStart:"+JSON.stringify(event));
         event.preventDefault();
         onTouchStart(event);
       }}
       onTouchEnd={event => {
+        console.log("Resizer onTouchEnd:"+JSON.stringify(event));
         event.preventDefault();
         onTouchEnd(event);
       }}
