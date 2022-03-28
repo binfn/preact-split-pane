@@ -88,8 +88,8 @@ SplitPaneState
 
     this.onMouseDown = this.onMouseDown.bind(this);
     this.onTouchStart = this.onTouchStart.bind(this);
-    this.onMouseMove = this.onMouseMove.bind(this);
-    this.onTouchMove = this.onTouchMove.bind(this);
+    //this.onMouseMove = this.onMouseMove.bind(this);
+    //this.onTouchMove = this.onTouchMove.bind(this);
     this.onMouseUp = this.onMouseUp.bind(this);
     this.onMouseLeave= this.onMouseLeave.bind(this);
     this.onMouseOut= this.onMouseOut.bind(this);
@@ -121,8 +121,8 @@ SplitPaneState
 
   componentDidMount() {
     document.addEventListener('mouseup', this.onMouseUp);
-    document.addEventListener('mousemove', this.onMouseMove);
-    document.addEventListener('touchmove', this.onTouchMove);
+    window.addEventListener('mousemove', this.onMouseMove);
+    window.addEventListener('touchmove', this.onTouchMove);
     document.addEventListener('mouseleave', this.onMouseLeave);
     document.addEventListener('mouseout', this.onMouseOut);
     this.setState(SplitPane.getSizeUpdate(this.props, this.state));
@@ -142,8 +142,8 @@ SplitPaneState
 
   componentWillUnmount() {
     document.removeEventListener('mouseup', this.onMouseUp);
-    document.removeEventListener('mousemove', this.onMouseMove);
-    document.removeEventListener('touchmove', this.onTouchMove);
+    window.removeEventListener('mousemove', this.onMouseMove);
+    window.removeEventListener('touchmove', this.onTouchMove);
     document.removeEventListener('mouseleave', this.onMouseLeave);
     document.removeEventListener('mouseout', this.onMouseOut);
   }
