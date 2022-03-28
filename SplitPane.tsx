@@ -91,7 +91,7 @@ SplitPaneState
     this.onMouseMove = this.onMouseMove.bind(this);
     this.onTouchMove = this.onTouchMove.bind(this);
     this.onMouseUp = this.onMouseUp.bind(this);
-
+    this.onMouseLeave= this.onMouseUp.bind(this);
     // order of setting panel sizes.
     // 1. size
     // 2. getDefaultSize(defaultSize, minsize, maxSize)
@@ -121,6 +121,7 @@ SplitPaneState
     document.addEventListener('mouseup', this.onMouseUp);
     document.addEventListener('mousemove', this.onMouseMove);
     document.addEventListener('touchmove', this.onTouchMove);
+    document.addEventListener('mouseleave', this.onMouseLeave);
     this.setState(SplitPane.getSizeUpdate(this.props, this.state));
   }
  
@@ -128,14 +129,27 @@ SplitPaneState
     return SplitPane.getSizeUpdate(nextProps, prevState);
   }
 
+  pauseEvent(e: MouseEvent){
+      if(e.stopPropagation) e.stopPropagation();
+      if(e.preventDefault) e.preventDefault();
+      e.cancelBubble=true;
+      e.returnValue=false;
+      return false;
+  }
+
   componentWillUnmount() {
     document.removeEventListener('mouseup', this.onMouseUp);
     document.removeEventListener('mousemove', this.onMouseMove);
     document.removeEventListener('touchmove', this.onTouchMove);
+    document.removeEventListener('mouseleave', this.onMouseLeave);
+  }
+  onMouseLeave(event: MouseEvent) {
+    console.log("SplitPane onMouseLeave:"+event.clientX+","+event.clientY);
   }
 
   onMouseDown(event: MouseEvent) {
     console.log("SplitPane onMouseDown->onTouchStart:"+event.clientX+","+event.clientY);
+    this.pauseEvent(event);
     const eventWithTouches = Object.assign({}, event, {
       touches: [{ clientX: event.clientX, clientY: event.clientY }],
     });
@@ -168,6 +182,7 @@ SplitPaneState
     const eventWithTouches = Object.assign({}, event, {
       touches: [{ clientX: event.clientX, clientY: event.clientY }],
     });
+    this.pauseEvent(event);
     // deno-lint-ignore no-explicit-any
     this.onTouchMove(eventWithTouches as any);
   }
@@ -179,6 +194,7 @@ SplitPaneState
     const { allowResize, maxSize, minSize, onChange, split, step } = this.props;
     const { active, position } = this.state;
     if (allowResize && active) {
+      
       // console.log("SplitPane onTouchMove:"+JSON.stringify(event)+" allowResize:"+allowResize+" active:"+active);
       unFocus(document, window);
       const isPrimaryFirst = this.props.primary === 'first';
@@ -257,6 +273,7 @@ SplitPaneState
         onDragFinished(draggedSize);
       }
       this.setState({ active: false });
+      
     }
   }
 
