@@ -1,8 +1,9 @@
+// deno-lint-ignore-file
 /** @jsx h */
 
 import Pane from './Pane.tsx';
 import Resizer, { RESIZER_DEFAULT_CLASSNAME } from './Resizer.tsx';
-import { Ref,ComponentChildren,ComponentChild,ComponentClass,Component,memo,h } from './deps.ts';
+import { ComponentChildren,ComponentChild,Component,h } from './deps.ts';
 
 function unFocus(document:any, window:any) {
   if (document.selection) {
@@ -61,9 +62,9 @@ export type SplitPaneProps = {
   pane2Style?: h.JSX.CSSProperties;
   resizerClassName?: string;
   step?: number;
-  paneClassName:string
-  pane1ClassName:string
-  pane2ClassName:string
+  paneClassName?:string
+  pane1ClassName?:string
+  pane2ClassName?:string
 };
 
 export type SplitPaneState = {

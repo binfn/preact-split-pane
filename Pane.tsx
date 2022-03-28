@@ -1,7 +1,7 @@
 // deno-lint-ignore-file
 /** @jsx h */
 
-import { h,FunctionComponent,Ref } from "./deps.ts";
+import { h,FunctionComponent,RefCallback } from "./deps.ts";
 export type Split = 'vertical' | 'horizontal';
 export type Size = string | number;
 export type PaneProps = {
@@ -9,7 +9,7 @@ export type PaneProps = {
   size?: Size;
   split?: Split;
   style?: h.JSX.CSSProperties,
-  eleRef?: (el: HTMLDivElement) => void;
+  eleRef?: RefCallback<HTMLDivElement>;
 };
 
 const Pane: FunctionComponent<PaneProps> = ({
