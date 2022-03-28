@@ -135,7 +135,7 @@ SplitPaneState
   }
 
   onMouseDown(event: MouseEvent) {
-    console.log("SplitPane onMouseDown->onTouchStart:"+JSON.stringify(event));
+    console.log("SplitPane onMouseDown->onTouchStart:"+event.clientX+","+event.clientY);
     const eventWithTouches = Object.assign({}, event, {
       touches: [{ clientX: event.clientX, clientY: event.clientY }],
     });
@@ -146,7 +146,7 @@ SplitPaneState
 
   onTouchStart(event: TouchEvent) {
     const { allowResize, onDragStarted, split } = this.props;
-    console.log("SplitPane onTouchStart:"+JSON.stringify(event)+" allowResize:"+allowResize);
+    console.log("SplitPane onTouchStart:"+event.touches[0].clientX+","+event.touches[0].clientY+" allowResize:"+allowResize);
     if (allowResize) {
       unFocus(document, window);
       const position =
@@ -165,7 +165,6 @@ SplitPaneState
   }
 
   onMouseMove(event: MouseEvent) {
-    console.log("SplitPane onMouseMove->onTouchMove:"+JSON.stringify(event));
     const eventWithTouches = Object.assign({}, event, {
       touches: [{ clientX: event.clientX, clientY: event.clientY }],
     });
@@ -179,8 +178,8 @@ SplitPaneState
   onTouchMove(event: TouchEvent) {
     const { allowResize, maxSize, minSize, onChange, split, step } = this.props;
     const { active, position } = this.state;
-    console.log("SplitPane onTouchMove:"+JSON.stringify(event)+" allowResize:"+allowResize+" active:"+active);
     if (allowResize && active) {
+      console.log("SplitPane onTouchMove:"+JSON.stringify(event)+" allowResize:"+allowResize+" active:"+active);
       unFocus(document, window);
       const isPrimaryFirst = this.props.primary === 'first';
       const ref = isPrimaryFirst ? this.pane1 : this.pane2;
