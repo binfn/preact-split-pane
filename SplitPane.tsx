@@ -88,8 +88,8 @@ SplitPaneState
 
     this.onMouseDown = this.onMouseDown.bind(this);
     this.onTouchStart = this.onTouchStart.bind(this);
-    //this.onMouseMove = this.onMouseMove.bind(this);
-    //this.onTouchMove = this.onTouchMove.bind(this);
+    this.onMouseMove = this.onMouseMove.bind(this);
+    this.onTouchMove = this.onTouchMove.bind(this);
     this.onMouseUp = this.onMouseUp.bind(this);
     this.onMouseLeave= this.onMouseLeave.bind(this);
     this.onMouseOut= this.onMouseOut.bind(this);
