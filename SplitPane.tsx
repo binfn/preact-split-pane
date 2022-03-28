@@ -132,14 +132,6 @@ SplitPaneState
     return SplitPane.getSizeUpdate(nextProps, prevState);
   }
 
-  pauseEvent(e: MouseEvent){
-      if(e.stopPropagation) e.stopPropagation();
-      if(e.preventDefault) e.preventDefault();
-      e.cancelBubble=true;
-      e.returnValue=false;
-      return false;
-  }
-
   componentWillUnmount() {
     document.removeEventListener('mouseup', this.onMouseUp);
     window.removeEventListener('mousemove', this.onMouseMove);
@@ -156,7 +148,6 @@ SplitPaneState
    
   onMouseDown(event: MouseEvent) {
     console.log("SplitPane onMouseDown->onTouchStart:"+event.clientX+","+event.clientY);
-    this.pauseEvent(event);
     const eventWithTouches = Object.assign({}, event, {
       touches: [{ clientX: event.clientX, clientY: event.clientY }],
     });
@@ -189,7 +180,6 @@ SplitPaneState
     const eventWithTouches = Object.assign({}, event, {
       touches: [{ clientX: event.clientX, clientY: event.clientY }],
     });
-    this.pauseEvent(event);
     // deno-lint-ignore no-explicit-any
     this.onTouchMove(eventWithTouches as any);
   }
