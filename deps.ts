@@ -24,7 +24,4 @@ export type {
   StateUpdater,
 } from "https://esm.sh/preact@10.6.6/hooks";
 
-export { memo,unstable_batchedUpdates } from "https://esm.sh/preact@10.6.6/compat"
-
-
 export { useSetState } from "https://deno.land/x/preact_ahooks@v0.0.5/mod.ts";
