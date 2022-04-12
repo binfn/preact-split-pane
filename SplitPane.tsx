@@ -1,5 +1,5 @@
-// deno-lint-ignore-file
 /** @jsx h */
+// deno-lint-ignore-file no-explicit-any
 
 import Pane from './Pane.tsx';
 import Resizer, { RESIZER_DEFAULT_CLASSNAME } from './Resizer.tsx';
@@ -11,7 +11,7 @@ function unFocus(document:any, window:any) {
   } else {
     try {
       window.getSelection().removeAllRanges();
-      // eslint-disable-next-line no-empty
+    // deno-lint-ignore no-empty
     } catch (e) {}
   }
 }
@@ -138,7 +138,6 @@ SplitPaneState
     const eventWithTouches = Object.assign({}, event, {
       touches: [{ clientX: event.clientX, clientY: event.clientY }],
     });
-    // deno-lint-ignore no-explicit-any
     this.onTouchStart(eventWithTouches as any);
   }
 
@@ -165,7 +164,6 @@ SplitPaneState
     const eventWithTouches = Object.assign({}, event, {
       touches: [{ clientX: event.clientX, clientY: event.clientY }],
     });
-    // deno-lint-ignore no-explicit-any
     this.onTouchMove(eventWithTouches as any);
   }
    pane1:HTMLDivElement|null=null;

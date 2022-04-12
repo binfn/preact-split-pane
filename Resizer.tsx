@@ -1,4 +1,5 @@
 /** @jsx h */
+// deno-lint-ignore-file ban-types
 
 import { h,FunctionComponent } from "./deps.ts";
 

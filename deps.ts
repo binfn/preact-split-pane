@@ -1,5 +1,5 @@
 // deno-lint-ignore-file
-export * from "https://esm.sh/preact@10.6.6";
+export * from "https://esm.sh/preact@10.x.x";
 
 export {
   useCallback,
@@ -13,7 +13,7 @@ export {
   useReducer,
   useRef,
   useState,
-} from "https://esm.sh/preact@10.6.6/hooks";
+} from "https://esm.sh/preact@10.x.x/hooks";
 export type {
   CreateHandle,
   EffectCallback,
@@ -22,6 +22,31 @@ export type {
   Reducer,
   Ref,
   StateUpdater,
-} from "https://esm.sh/preact@10.6.6/hooks";
+} from "https://esm.sh/preact@10.x.x/hooks";
 
-export { useSetState } from "https://deno.land/x/preact_ahooks@v0.0.5/mod.ts";
+
+import { useCallback, useState } from "https://esm.sh/preact@10.x.x/hooks";
+function isFunction(obj: any): obj is Function {
+  return typeof obj === 'function';
+}
+
+export type SetState<S extends Record<string, any>> = <K extends keyof S>(
+  state: Pick<S, K> | null | ((prevState: Readonly<S>) => Pick<S, K> | S | null),
+) => void;
+
+const useSetState = <S extends Record<string, any>>(
+  initialState: S | (() => S),
+): [S, SetState<S>] => {
+  const [state, setState] = useState<S>(initialState);
+
+  const setMergeState = useCallback((patch:any) => {
+    setState((prevState) => {
+      const newState = isFunction(patch) ? patch(prevState) : patch;
+      return newState ? { ...prevState, ...newState } : prevState;
+    });
+  }, []);
+
+  return [state, setMergeState];
+};
+
+export default useSetState;
